@@ -1,27 +1,53 @@
 package ninja.retrievr.retrievr;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.parse.ParseUser;
+import com.parse.ui.ParseLoginActivity;
 import com.parse.ui.ParseLoginBuilder;
 
 
 public class MainActivity extends Activity {
 
 
+    private ParseUser currentUser;
+
+    private int builderRequestCode = 1217;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-        startActivityForResult(builder.build(), 0);
-        this.finish(); // Kill the calling activity. We may not want to kill based on how we handle requesting from DB
-                        // Only finish if quit/fail.
-    }
+        currentUser = ParseUser.getCurrentUser();
 
+        if (currentUser == null) {
+            // user not logged in, present them with login screen
+            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
+
+            builder.setFacebookLoginEnabled(true);
+//            builder.setTwitterLoginEnabled(true);
+
+            startActivityForResult(builder.build(), builderRequestCode);
+
+//            currentUser = ParseUser.getCurrentUser();
+
+//            if (currentUser == null) {
+//                Toast.makeText(this, "User", Toast.LENGTH_LONG).show();
+//                this.finish();
+//            }
+
+
+        }
+
+
+        // initialize the ListView
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,8 +66,25 @@ public class MainActivity extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.logout_overflow) {
+            ParseUser.logOut();
+            Toast.makeText(this, getString(R.string.successful_logout), Toast.LENGTH_SHORT).show();
+            Intent mainActivityIntent = new Intent(this, MainActivity.class);
+
+            startActivity(mainActivityIntent);
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == builderRequestCode) {
+            if (resultCode == RESULT_CANCELED) {
+                this.finish();
+            }
+        }
+    }
+
 }
