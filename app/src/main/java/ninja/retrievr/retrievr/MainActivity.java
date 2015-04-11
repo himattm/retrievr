@@ -11,10 +11,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -45,57 +50,64 @@ public class MainActivity extends Activity {
 //            builder.setTwitterLoginEnabled(true);
 
             startActivityForResult(builder.build(), builderRequestCode);
-        }
-        // END Login Sequence
+            // END Login Sequence
+        } else {
+            // View Initialization
+            final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        // View Initialization
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+            populateList(recyclerView);
 
-        recyclerView.setAdapter(new RetrievrRecyclerAdapter(loadItems()));
+            recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
 
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                if(Math.abs(dy) > mScrollOffset){
-                    if(dy > 0){
-                        fab.hide(true);
-                    }else{
-                        fab.show(true);
+                    if (Math.abs(dy) > mScrollOffset) {
+                        if (dy > 0) {
+                            fab.hide(true);
+                        } else {
+                            fab.show(true);
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nfcActivityIntent = new Intent(v.getContext(), NFCActivity.class);
-                startActivity(nfcActivityIntent);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent nfcActivityIntent = new Intent(v.getContext(), NFCActivity.class);
+                    startActivity(nfcActivityIntent);
 
 //                Toast.makeText(v.getContext(), "Scan NFC Now", Toast.LENGTH_LONG).show();
-            }
-        });
-
+                }
+            });
+        }
     }
 
-    private ArrayList<RetrievrItem> loadItems() {
-        // change this to load from parse database
+    private void populateList(final RecyclerView recyclerView) {
+        if (currentUser != null) {
+            ParseRelation<ParseObject> relation = currentUser.getRelation("item");
+            relation.getQuery().findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> results, ParseException e) {
+                    if (e != null) {
+                        // There was an error
+                    } else {
+                        // results have all the Posts the current user liked.
+                        ArrayList<RetrievrItem> items = new ArrayList<>();
+                        for (ParseObject item : results) {
+                            items.add(new RetrievrItem((String) item.get("name")));
+                        }
 
-        ArrayList<RetrievrItem> items = new ArrayList<>();
-        items.add(new RetrievrItem("Keys"));
-        items.add(new RetrievrItem("Laptop"));
-        items.add(new RetrievrItem("Wallet"));
-        items.add(new RetrievrItem("Phone"));
-        items.add(new RetrievrItem("Jacket"));
-
-        return items;
+                        recyclerView.setAdapter(new RetrievrRecyclerAdapter(items));
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -132,7 +144,13 @@ public class MainActivity extends Activity {
         if (requestCode == builderRequestCode) {
             if (resultCode == RESULT_CANCELED) {
                 this.finish();
+            } else {
+                Intent mainActivityIntent = new Intent(this, MainActivity.class);
+
+                startActivity(mainActivityIntent);
+                this.finish();
             }
+
         }
     }
 
