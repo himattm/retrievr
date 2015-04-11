@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#ea3e0d</color>
     <color name="accent">#5791ff</color>
     <color name="navigationBarColor">#00000000</color>
+
+    <color name="fabColor">#5791ff</color>
+    <color name="fabColorPressed">#5767ff</color>
 </resources>

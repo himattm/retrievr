@@ -7,10 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginActivity;
 import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
@@ -23,11 +24,15 @@ public class MainActivity extends Activity {
 
     private int builderRequestCode = 1217;
 
+    private int mScrollOffset = 4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // Log in Sequence
         currentUser = ParseUser.getCurrentUser();
 
         if (currentUser == null) {
@@ -41,15 +46,40 @@ public class MainActivity extends Activity {
 
             startActivityForResult(builder.build(), builderRequestCode);
         }
+        // END Login Sequence
+
+        // View Initialization
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(new RetrievrRecyclerAdapter(loadItems()));
 
-        // initialize the ListView
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if(Math.abs(dy) > mScrollOffset){
+                    if(dy > 0){
+                        fab.hide(true);
+                    }else{
+                        fab.show(true);
+                    }
+                }
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Scan NFC Now", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     private ArrayList<RetrievrItem> loadItems() {
