@@ -47,7 +47,7 @@
                 android:value="8"/>
             <meta-data
                 android:name="com.parse.ui.ParseLoginActivity.FACEBOOK_LOGIN_ENABLED"
-                android:value="true"/>
+                android:value="false"/>
         </activity>
 
 

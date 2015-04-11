@@ -28,7 +28,7 @@
     </style>
 
     <style name="ParseLoginUI.TextView" parent="@android:style/Widget.TextView">
-        <item name="android:textColor">@color/com_parse_ui_parse_login_display_text</item>
+        <item name="android:textColor">@color/com_parse_ui_parse_login_display_text_blue</item>
         <item name="android:textSize">18sp</item>
     </style>
 

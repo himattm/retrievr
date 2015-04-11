@@ -41,8 +41,8 @@ public class MainActivity extends Activity {
 
             builder.setAppLogo(R.drawable.dog_retrievr_text_small); // The Center Image
 
-            builder.setFacebookLoginEnabled(true);
-            builder.setTwitterLoginEnabled(true);
+//            builder.setFacebookLoginEnabled(true);
+//            builder.setTwitterLoginEnabled(true);
 
             startActivityForResult(builder.build(), builderRequestCode);
         }
