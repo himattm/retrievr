@@ -20,14 +20,14 @@ android {
 }
 
 dependencies {
-    compile 'com.parse.bolts:bolts-android:1.+'
+    compile 'com.parse.bolts:bolts-android:1.2.0'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
     // Module dependency on ParseLoginUI library sources
     compile project(':ParseLoginUI')
-
     compile files('libs/Parse-1.8.4.jar')
     compile files('libs/ParseFacebookUtils-1.8.4.jar')
 
+    compile 'com.android.support:recyclerview-v7:22.0.0'
+    compile 'com.android.support:cardview-v7:22.0.0'
 }

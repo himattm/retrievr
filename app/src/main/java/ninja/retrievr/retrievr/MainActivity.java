@@ -3,6 +3,8 @@ package ninja.retrievr.retrievr;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -10,6 +12,8 @@ import android.widget.Toast;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginActivity;
 import com.parse.ui.ParseLoginBuilder;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity {
@@ -36,11 +40,29 @@ public class MainActivity extends Activity {
             builder.setTwitterLoginEnabled(true);
 
             startActivityForResult(builder.build(), builderRequestCode);
-
         }
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+
+        recyclerView.setAdapter(new RetrievrRecyclerAdapter(loadItems()));
 
         // initialize the ListView
+    }
+
+    private ArrayList<RetrievrItem> loadItems() {
+        // change this to load from parse database
+
+        ArrayList<RetrievrItem> items = new ArrayList<>();
+        items.add(new RetrievrItem("Keys"));
+        items.add(new RetrievrItem("Laptop"));
+        items.add(new RetrievrItem("Wallet"));
+        items.add(new RetrievrItem("Phone"));
+        items.add(new RetrievrItem("Jacket"));
+
+        return items;
     }
 
     @Override
