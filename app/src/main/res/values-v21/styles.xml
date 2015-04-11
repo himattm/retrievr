@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.Material">
+
+        <!--Cannot be transparent-->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+
+        <!--Can be transparent-->
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <!--Can be transparent-->
+        <item name="android:colorAccent">@color/accent</item>
+
+        <!--Can be transparent-->
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+    </style>
+</resources>

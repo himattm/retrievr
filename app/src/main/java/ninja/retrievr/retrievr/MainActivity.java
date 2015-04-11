@@ -18,6 +18,8 @@ public class MainActivity extends Activity {
 
         ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
         startActivityForResult(builder.build(), 0);
+        this.finish(); // Kill the calling activity. We may not want to kill based on how we handle requesting from DB
+                        // Only finish if quit/fail.
     }
 
 
