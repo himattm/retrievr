@@ -30,18 +30,12 @@ public class MainActivity extends Activity {
             // user not logged in, present them with login screen
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
 
+            builder.setAppLogo(R.drawable.dog_retrievr_text_small); // The Center Image
+
             builder.setFacebookLoginEnabled(true);
-//            builder.setTwitterLoginEnabled(true);
+            builder.setTwitterLoginEnabled(true);
 
             startActivityForResult(builder.build(), builderRequestCode);
-
-//            currentUser = ParseUser.getCurrentUser();
-
-//            if (currentUser == null) {
-//                Toast.makeText(this, "User", Toast.LENGTH_LONG).show();
-//                this.finish();
-//            }
-
 
         }
 
