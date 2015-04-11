@@ -1,5 +1,7 @@
 package ninja.retrievr.retrievr;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +12,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginActivity;
+import com.parse.ParseObject;
 import com.parse.ui.ParseLoginBuilder;
+import com.parse.ParseQuery;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+
 
 import java.util.ArrayList;
 
@@ -49,18 +55,26 @@ public class MainActivity extends Activity {
 
         recyclerView.setAdapter(new RetrievrRecyclerAdapter(loadItems()));
 
+        //
+
         // initialize the ListView
     }
 
     private ArrayList<RetrievrItem> loadItems() {
         // change this to load from parse database
 
-        ArrayList<RetrievrItem> items = new ArrayList<>();
-        items.add(new RetrievrItem("Keys"));
-        items.add(new RetrievrItem("Laptop"));
-        items.add(new RetrievrItem("Wallet"));
-        items.add(new RetrievrItem("Phone"));
-        items.add(new RetrievrItem("Jacket"));
+        final ArrayList<RetrievrItem> items = new ArrayList<>();
+
+        //find all items associated with user
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("item");
+        query.whereEqualTo("user", currentUser);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> itemList, ParseException e) {
+                for(ParseObject item : itemList){
+                    items.add(new RetrievrItem(item.getString("name")));
+                }
+            }
+        });
 
         return items;
     }
