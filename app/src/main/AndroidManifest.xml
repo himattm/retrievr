@@ -50,6 +50,11 @@
                 android:value="false"/>
         </activity>
 
+        <activity
+            android:name=".NFCActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
 
     </application>
 

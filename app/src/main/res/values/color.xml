@@ -13,4 +13,7 @@
     <color name="cardBackground">#FFF</color>
     <color name="cardTextColor">#222</color>
     <color name="cardAccent">#44000000</color>
+
+    <color name="nfcBackground">#F46036</color>
+    <color name="nfcHelpTextColor">#FFF</color>
 </resources>

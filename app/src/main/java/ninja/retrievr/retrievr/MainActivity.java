@@ -76,7 +76,10 @@ public class MainActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Scan NFC Now", Toast.LENGTH_LONG).show();
+                Intent nfcActivityIntent = new Intent(v.getContext(), NFCActivity.class);
+                startActivity(nfcActivityIntent);
+
+//                Toast.makeText(v.getContext(), "Scan NFC Now", Toast.LENGTH_LONG).show();
             }
         });
 

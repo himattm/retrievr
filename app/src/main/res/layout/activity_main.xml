@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_content_add"
+        android:src="@drawable/ic_square_reticule_fab"
         fab:fab_colorNormal="@color/fabColor"
         fab:fab_colorPressed="@color/fabColorPressed"
         fab:fab_colorRipple="@color/accent"
