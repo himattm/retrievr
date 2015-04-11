@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="mainBackground">#ddd</color>
+
     <color name="colorPrimary">#F46036</color>
     <color name="colorPrimaryDark">#ea3e0d</color>
     <color name="accent">#5791ff</color>
-    <color name="navigationBarColor">#00000000</color>
+    <color name="navigationBarColor">#000</color>
 
     <color name="fabColor">#5791ff</color>
     <color name="fabColorPressed">#5767ff</color>
+
+    <color name="cardBackground">#FFF</color>
+    <color name="cardTextColor">#222</color>
+    <color name="cardAccent">#44000000</color>
 </resources>

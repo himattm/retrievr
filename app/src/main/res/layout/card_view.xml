@@ -4,23 +4,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    card_view:cardCornerRadius="4dp"
-    android:layout_margin="5dp">
+    android:layout_height="50dp"
+    card_view:cardCornerRadius="1dp"
+    android:layout_margin="5dp" >
 
     <RelativeLayout
         android:id="@+id/cardBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/cardBackground">
 
         <TextView
             android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/app_name"
             android:gravity="center_vertical"
-            android:textColor="@color/accent"
-            android:textSize="30dp"/>
+            android:textColor="@color/cardTextColor"
+            android:textSize="14sp"
+            android:layout_centerInParent="true"
+            android:paddingStart="24dp"/>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/cardAccent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
