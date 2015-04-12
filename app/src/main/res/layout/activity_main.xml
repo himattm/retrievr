@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".MainActivity"
-    android:background="@color/mainBackground">
+    android:background="@color/mainBackground"
+    android:paddingTop="10dp">
 
     <ImageView
         android:id="@+id/imageViewNoItems"
@@ -16,7 +17,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab"
