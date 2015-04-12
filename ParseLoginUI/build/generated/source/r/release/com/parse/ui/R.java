@@ -222,14 +222,15 @@ containing a value of this type.
         public static int com_parse_ui_parse_login_button_focus=0x7f04000f;
         public static int com_parse_ui_parse_login_button_push=0x7f040010;
         public static int com_parse_ui_parse_login_display_text=0x7f040011;
-        public static int com_parse_ui_parse_login_help_button_label=0x7f040012;
-        public static int com_parse_ui_parse_login_help_button_label_focus=0x7f040013;
-        public static int com_parse_ui_parse_login_help_button_label_push=0x7f040014;
-        public static int com_parse_ui_parse_login_help_button_label_selector=0x7f040019;
-        public static int com_parse_ui_parse_login_text_hint=0x7f040015;
-        public static int com_parse_ui_twitter_login_button=0x7f040016;
-        public static int com_parse_ui_twitter_login_button_focus=0x7f040017;
-        public static int com_parse_ui_twitter_login_button_push=0x7f040018;
+        public static int com_parse_ui_parse_login_display_text_blue=0x7f040012;
+        public static int com_parse_ui_parse_login_help_button_label=0x7f040013;
+        public static int com_parse_ui_parse_login_help_button_label_focus=0x7f040014;
+        public static int com_parse_ui_parse_login_help_button_label_push=0x7f040015;
+        public static int com_parse_ui_parse_login_help_button_label_selector=0x7f04001a;
+        public static int com_parse_ui_parse_login_text_hint=0x7f040016;
+        public static int com_parse_ui_twitter_login_button=0x7f040017;
+        public static int com_parse_ui_twitter_login_button_focus=0x7f040018;
+        public static int com_parse_ui_twitter_login_button_push=0x7f040019;
     }
     public static final class dimen {
         public static int com_facebook_likeboxcountview_border_radius=0x7f050000;
