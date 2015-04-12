@@ -86,6 +86,8 @@ public class NFCReaderActivity extends Activity {
                         final String userID = parseObjects.get(0).getParseObject("user").getObjectId();
 //                        Toast.makeText(getApplicationContext(), "UserID: " + userID, Toast.LENGTH_LONG).show();
 
+                        final String itemName = parseObjects.get(0).getString("name");
+
                         // IF already in your things
                         // Get the only element in the list and check if the user object ID is the same as the current user
                         if (userID.equals(ParseUser.getCurrentUser().getObjectId())) {
@@ -99,7 +101,7 @@ public class NFCReaderActivity extends Activity {
                                 //push.setChannel("r" + userID); //TODO put this back?
 
                                 push.setData(new JSONObject("{\"id\": \'" + userID + "\'," +
-                                        "\"title\": \"Your Item has been found!\" }"));
+                                        "\"title\": \"Your Item: " + itemName + " has been found!\" }"));
 
                                 //push.setMessage("Tag with code " + tagID + " is someone elses.");
                                 push.sendInBackground(new SendCallback() {
