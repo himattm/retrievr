@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +15,10 @@ import com.github.clans.fab.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
@@ -37,6 +39,22 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (ParseUser.getCurrentUser() != null) {
+            // Subscribe the user to their own channel ID
+            Toast.makeText(this, ParseUser.getCurrentUser().getObjectId(), Toast.LENGTH_LONG).show();
+
+            // Subscribe to your userID channel with a prepended 'r'
+            ParsePush.subscribeInBackground("r" + ParseUser.getCurrentUser().getObjectId(), new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null)
+                        Log.d("SUBBED TO:", "r" + ParseUser.getCurrentUser().getObjectId());
+                    else
+                        Log.d("ERROR SUBBING:", e.getMessage());
+                }
+            });
+
+        }
 
         // Log in Sequence
         currentUser = ParseUser.getCurrentUser();

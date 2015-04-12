@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -14,8 +15,12 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SendCallback;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -64,7 +69,7 @@ public class NFCReaderActivity extends Activity {
 
         byte[] tagIDBytes = tagFromIntent.getId();
 
-        String tagID = convertByteArraytoString(tagIDBytes);
+        final String tagID = convertByteArraytoString(tagIDBytes);
 
         // Query DB
         // Make desicion on new tag or existing tag
@@ -76,15 +81,39 @@ public class NFCReaderActivity extends Activity {
                 if (e != null) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 } else {
+
                     if (parseObjects.size() > 0) {
+                        final String userID = parseObjects.get(0).getParseObject("user").getObjectId();
+                        Toast.makeText(getApplicationContext(), "UserID: " + userID, Toast.LENGTH_LONG).show();
+
                         // IF already in your things
                         // Get the only element in the list and check if the user object ID is the same as the current user
-                        Toast.makeText(getApplicationContext(), "You have already added this object", Toast.LENGTH_SHORT).show();
-                        if (parseObjects.get(0).get(getString(R.string.newItemCurrentUser)).toString().equals(ParseUser.getCurrentUser().getObjectId())) {
+                        if (userID.equals(ParseUser.getCurrentUser().getObjectId())) {
                             Toast.makeText(getApplicationContext(), "You have already added this item", Toast.LENGTH_SHORT).show();
-                        } else { // If in someone elses things
+                        } else { // If in someone else's things
                             // TODO Add Push
 
+                            try {
+                                // Find userID that owns the tag
+                                ParsePush push = new ParsePush();
+                                //push.setChannel("r" + userID); //TODO put this back?
+
+                                push.setData(new JSONObject("{\"id\": \'" + userID + "\'," +
+                                        "\"title\": \"Your Item has been found!\" }"));
+
+                                //push.setMessage("Tag with code " + tagID + " is someone elses.");
+                                push.sendInBackground(new SendCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null)
+                                            Toast.makeText(getApplicationContext(), "Sent to " + "r" + userID, Toast.LENGTH_LONG).show();
+                                        else
+                                            Log.d("Error Sending:", e.getMessage());
+                                    }
+                                });
+                            } catch (Exception e2) {
+                                e2.printStackTrace();
+                            }
                         }
                     } else { // New Tag Activity
 
