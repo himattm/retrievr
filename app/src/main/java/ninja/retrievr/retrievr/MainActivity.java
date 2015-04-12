@@ -14,6 +14,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
@@ -91,8 +92,9 @@ public class MainActivity extends Activity {
 
     private void populateList(final RecyclerView recyclerView) {
         if (currentUser != null) {
-            ParseRelation<ParseObject> relation = currentUser.getRelation("item");
-            relation.getQuery().findInBackground(new FindCallback<ParseObject>() {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery(getString(R.string.newItemClass));
+            query.whereEqualTo("user", ParseUser.getCurrentUser());
+            query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> results, ParseException e) {
                     if (e != null) {
                         // There was an error
