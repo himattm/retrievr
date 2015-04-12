@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -34,6 +35,8 @@ public class MainActivity extends Activity {
 
     private int mScrollOffset = 4;
 
+    private ImageView imageViewNoItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,7 @@ public class MainActivity extends Activity {
 
         if (ParseUser.getCurrentUser() != null) {
             // Subscribe the user to their own channel ID
-            Toast.makeText(this, ParseUser.getCurrentUser().getObjectId(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, ParseUser.getCurrentUser().getObjectId(), Toast.LENGTH_LONG).show();
 
             // Subscribe to your userID channel with a prepended 'r'
             ParsePush.subscribeInBackground("r" + ParseUser.getCurrentUser().getObjectId(), new SaveCallback() {
@@ -105,6 +108,9 @@ public class MainActivity extends Activity {
 //                Toast.makeText(v.getContext(), "Scan NFC Now", Toast.LENGTH_LONG).show();
                 }
             });
+
+            imageViewNoItems = (ImageView) findViewById(R.id.imageViewNoItems);
+
         }
     }
 
@@ -123,7 +129,12 @@ public class MainActivity extends Activity {
                             items.add(new RetrievrItem((String) item.get("name")));
                         }
 
-                        recyclerView.setAdapter(new RetrievrRecyclerAdapter(items));
+                        if(items.size() == 0){
+                            imageViewNoItems.setVisibility(View.VISIBLE);
+                        }else {
+                            imageViewNoItems.setVisibility(View.GONE);
+                            recyclerView.setAdapter(new RetrievrRecyclerAdapter(items));
+                        }
                     }
                 }
             });

@@ -84,7 +84,7 @@ public class NFCReaderActivity extends Activity {
 
                     if (parseObjects.size() > 0) {
                         final String userID = parseObjects.get(0).getParseObject("user").getObjectId();
-                        Toast.makeText(getApplicationContext(), "UserID: " + userID, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "UserID: " + userID, Toast.LENGTH_LONG).show();
 
                         // IF already in your things
                         // Get the only element in the list and check if the user object ID is the same as the current user
@@ -105,10 +105,12 @@ public class NFCReaderActivity extends Activity {
                                 push.sendInBackground(new SendCallback() {
                                     @Override
                                     public void done(ParseException e) {
-                                        if (e == null)
-                                            Toast.makeText(getApplicationContext(), "Sent to " + "r" + userID, Toast.LENGTH_LONG).show();
-                                        else
+                                        if (e == null) {
+//                                            Toast.makeText(getApplicationContext(), "Sent to " + "r" + userID, Toast.LENGTH_LONG).show();
+                                        }
+                                        else {
                                             Log.d("Error Sending:", e.getMessage());
+                                        }
                                     }
                                 });
                             } catch (Exception e2) {
