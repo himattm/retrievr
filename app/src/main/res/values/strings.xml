@@ -12,4 +12,19 @@
 
     <string name="parse_app_id">326Ce5L5lxxfMFHbfa1wE7OFLvphQ2FC2MxeJlWW</string>
     <string name="parse_client_key">PftH2OrYoAwvR1XcHrZxLLGGWIEQBqT2mDelM6oY</string>
+    <string name="title_activity_write">WriteActivity</string>
+
+    <string name="nfc_intent_extras">ninja.retrievr.intent.extras</string>
+
+    <string name="newItemWelcome">Congrats on adding an item to Retrievr!</string>
+    <string name="newItemQuestion">What did you add today?</string>
+    <string name="newItemHint">Car keys, wallet, jacket, etc…</string>
+    <string name="rescan">Rescan your new item to\ncomplete the process!</string>
+
+
+    <string name="newItemClass">Item</string>
+    <string name="newItemName">name</string>
+    <string name="newItemTagID">tagID</string>
+    <string name="newItemCurrentUser">user</string>
+
 </resources>

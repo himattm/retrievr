@@ -16,7 +16,7 @@ import android.widget.Toast;
 /**
  * Created by mattmckenna on 4/11/15.
  */
-public class NFCActivity extends Activity {
+public class NFCReaderActivity extends Activity {
 
     private ImageView squareReticule;
 
@@ -54,6 +54,12 @@ public class NFCActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        Toast.makeText(this, tagFromIntent.toString(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, tagFromIntent.toString(), Toast.LENGTH_LONG).show();
+
+        Intent wrapperIntent = new Intent(getApplicationContext(), WriteActivity.class);
+
+        wrapperIntent.putExtra(getString(R.string.nfc_intent_extras), intent.getParcelableExtra(NfcAdapter.EXTRA_TAG));
+
+        startActivity(wrapperIntent);
     }
 }
