@@ -21,9 +21,12 @@ android {
 
 dependencies {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 4b7a610... Included Parse SDK
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

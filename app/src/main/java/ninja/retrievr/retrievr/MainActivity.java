@@ -9,10 +9,13 @@ import android.view.MenuItem;
 public class MainActivity extends Activity {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     Par
 
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 4b7a610... Included Parse SDK
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
